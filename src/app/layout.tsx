@@ -21,7 +21,7 @@ async function getData(userId: string) {
         id: userId,
       },
       select: {
-        colorSchema: true,
+        colorScheme: true,
       },
     });
     return data;
@@ -41,7 +41,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${data?.colorSchema ?? "theme-orange"}`}
+        className={`${inter.className} ${data?.colorScheme ?? "theme-orange"}`}
       >
         <Toaster />
         <ThemeProvider

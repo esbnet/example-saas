@@ -1,4 +1,4 @@
-import { SubmmitButton } from "@/app/components/submmit-button";
+import { SubmmitButton } from "@/app/components/submmitions-button";
 import {
   Card,
   CardContent,
@@ -31,7 +31,7 @@ async function getData(userId: string) {
     select: {
       name: true,
       email: true,
-      colorSchema: true,
+      colorScheme: true,
     },
   });
 
@@ -57,7 +57,7 @@ export default async function Settings() {
       },
       data: {
         name: formDate.get("name") as string,
-        colorSchema: formDate.get("color") as string,
+        colorScheme: formDate.get("color") as string,
       },
     });
 
@@ -106,7 +106,7 @@ export default async function Settings() {
               </div>
               <div className="space-y-1">
                 <Label htmlFor="color-scheme">Color Schema</Label>
-                <Select name="color" defaultValue={data?.colorSchema as string}>
+                <Select name="color" defaultValue={data?.colorScheme as string}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a color" />
                     <SelectContent>

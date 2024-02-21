@@ -1,8 +1,17 @@
-import { StripeSubscriptionCreationButton } from "@/app/components/submmit-button";
+import {
+  StripePortal,
+  StripeSubscriptionCreationButton,
+} from "@/app/components/submmitions-button";
 import prisma from "@/app/lib/db";
-import { getStripeSession } from "@/app/lib/stripe";
-import { getData } from "@/app/services/getCuscribeData";
-import { Card, CardContent } from "@/components/ui/card";
+import { getStripeSession, stripe } from "@/app/lib/stripe";
+import { getData } from "@/app/services/getSubscribeData";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { CheckCircle2 } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -54,6 +63,48 @@ export default async function Billing() {
     });
 
     redirect(subscriptionUrl);
+  }
+
+  async function createCustomerPortal() {
+    "use server";
+
+    const session = await stripe.billingPortal.sessions.create({
+      customer: data?.user?.stripeCustomerId as string,
+      return_url: "http://localhost:3000/dashboard",
+    });
+
+    const subscriptionUrl = session.url as string;
+
+    redirect(subscriptionUrl);
+  }
+
+  if (data?.status === "active") {
+    return (
+      <div className="grid items-start gap-8">
+        <div className="flex items-center justify-between px-2">
+          <div className="grid gap-1">
+            <h1 className="text-3xl md:text-4xl">Subscription</h1>
+            <p className="text-lg text-muted-foreground">
+              Settings reading your subscription
+            </p>
+          </div>
+        </div>
+        <Card className="w-full lg:w-2/3">
+          <CardHeader>
+            <CardTitle>Edit Subscription</CardTitle>
+            <CardDescription>
+              Click on the button below, this will give you the opportunity to
+              change your payment and view your statement at the same time.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="">
+            <form action={createCustomerPortal}>
+              <StripePortal />
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (

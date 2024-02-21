@@ -23,7 +23,7 @@ export default function SuccessRoute() {
             </div>
             <div className="mt-5 sm:mt-6 w-full">
               <Button className="w-full" asChild>
-                <Link href="/">Go Home to Dashboard</Link>
+                <Link href="/">Go back to Dashboard</Link>
               </Button>
             </div>
           </div>
