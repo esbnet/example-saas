@@ -2,6 +2,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import DashboardNav from "../components/dashboard-nav";
 import prisma from "../lib/db";
+import { stripe } from "../lib/stripe";
 
 export async function getData({
   email,
@@ -33,6 +34,21 @@ export async function getData({
         id,
         email,
         name,
+      },
+    });
+  }
+
+  if (!user?.stripeCustomerId) {
+    const data = await stripe.customers.create({
+      email,
+    });
+
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        stripeCustomerId: data.id,
       },
     });
   }
