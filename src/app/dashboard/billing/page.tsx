@@ -45,7 +45,7 @@ export default async function Billing() {
 
     const dbUser = await prisma.user.findUnique({
       where: {
-        id: user?.id as string,
+        id: user?.id,
       },
       select: {
         stripeCustomerId: true,
@@ -53,12 +53,15 @@ export default async function Billing() {
     });
 
     if (!dbUser?.stripeCustomerId) {
-      throw new Error("Customer ID not found");
+      throw new Error("Unable ro get customer id");
     }
 
     const subscriptionUrl = await getStripeSession({
       customerId: dbUser.stripeCustomerId,
-      domainUrl: process.env.DOMAIN_URL as string,
+      domainUrl:
+        process.env.NODE_ENV == "production"
+          ? (process.env.PRODUCTION_URL as string)
+          : (process.env.KINDE_POST_LOGOUT_REDIRECT_URL as string),
       priceId: process.env.STRIPE_PRICE_ID as string,
     });
 
@@ -70,7 +73,10 @@ export default async function Billing() {
 
     const session = await stripe.billingPortal.sessions.create({
       customer: data?.user?.stripeCustomerId as string,
-      return_url: process.env.KINDE_POST_LOGIN_REDIRECT_URL as string,
+      return_url:
+        process.env.NODE_ENV === "production"
+          ? (process.env.PRODUCTION_URL as string)
+          : (process.env.KINDE_POST_LOGIN_REDIRECT_URL as string),
     });
 
     const subscriptionUrl = session.url as string;
