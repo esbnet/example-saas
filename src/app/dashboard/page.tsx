@@ -1,10 +1,12 @@
 import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from "next/link";
 
-import { File } from "lucide-react";
+import { Edit, File } from "lucide-react";
+import { revalidatePath } from "next/cache";
+import { DeleteNote } from "../components/submmitions-button";
 
 async function getData(userId: string) {
   const data = await prisma.note.findMany({
@@ -22,8 +24,20 @@ async function getData(userId: string) {
 export default async function Dashboard() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-
   const data = await getData(user?.id as string);
+
+  async function deleteNote(formDate: FormData) {
+    "use server";
+
+    await prisma.note.delete({
+      where: {
+        id: formDate.get("noteId") as string,
+        userId: user?.id as string,
+      },
+    });
+
+    revalidatePath("/dashboard", "layout");
+  }
 
   return (
     <div className="grid items-start gap-y-8">
@@ -59,15 +73,33 @@ export default async function Dashboard() {
           </Button>
         </div>
       ) : (
-        <div className="grid gap-4">
+        <div className="gap-y-4 flex flex-col">
           {data.map((note) => (
-            <Card key={note.id}>
-              <CardHeader>
-                <CardTitle>{note.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>{note.description}</p>
-              </CardContent>
+            <Card
+              key={note.id}
+              className="flex items-center justify-between p-4"
+            >
+              <div>
+                <h2 className="text-xl text-primary font-semibold">
+                  {note.title}
+                </h2>
+                <p>
+                  {new Intl.DateTimeFormat("pt-BR", {
+                    dateStyle: "full",
+                  }).format(new Date(note.createdAt))}
+                </p>
+              </div>
+              <div className="flex gap-x-4">
+                <Link href={`/dashboard/new/${note.id}`}>
+                  <Button variant={"outline"} size="icon">
+                    <Edit className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <form action={deleteNote}>
+                  <input type="hidden" name="noteId" value={note.id} />
+                  <DeleteNote />
+                </form>
+              </div>
             </Card>
           ))}
         </div>

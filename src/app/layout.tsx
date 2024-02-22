@@ -43,7 +43,6 @@ export default async function RootLayout({
       <body
         className={`${inter.className} ${data?.colorScheme ?? "theme-orange"}`}
       >
-        <Toaster />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -53,6 +52,7 @@ export default async function RootLayout({
           <Navbar />
           {children}
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );
