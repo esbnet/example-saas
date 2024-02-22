@@ -1,5 +1,5 @@
-import { SubmmitButton } from "@/app/components/submmitions-button";
-import prisma from "@/app/lib/db";
+import { SubmmitButton } from "@/app/[lang]/components/submmitions-button";
+import prisma from "@/app/[lang]/lib/db";
 import { Button } from "@/components/ui/button";
 import {
   Card,

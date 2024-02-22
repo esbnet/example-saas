@@ -1,5 +1,5 @@
-import prisma from "@/app/lib/db";
-import { stripe } from "@/app/lib/stripe";
+import prisma from "@/app/[lang]/lib/db";
+import { stripe } from "@/app/[lang]/lib/stripe";
 import { headers } from "next/headers";
 import Stripe from "stripe";
 
