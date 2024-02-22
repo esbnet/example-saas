@@ -1,11 +1,12 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
+import { ReactNode } from "react";
 import DashboardNav from "../components/dashboard-nav";
 import prisma from "../lib/db";
 import { stripe } from "../lib/stripe";
 
-export async function getData({
+async function getData({
   email,
   id,
   firstName,
@@ -21,7 +22,7 @@ export async function getData({
   noStore();
   const user = await prisma.user.findUnique({
     where: {
-      id,
+      id: id,
     },
     select: {
       id: true,
@@ -30,24 +31,24 @@ export async function getData({
   });
 
   if (!user) {
-    const name = `${firstName} ${lastName} ?? ""`;
+    const name = `${firstName ?? ""} ${lastName ?? ""}`;
     await prisma.user.create({
       data: {
-        id,
-        email,
-        name,
+        id: id,
+        email: email,
+        name: name,
       },
     });
   }
 
   if (!user?.stripeCustomerId) {
     const data = await stripe.customers.create({
-      email,
+      email: email,
     });
 
     await prisma.user.update({
       where: {
-        id,
+        id: id,
       },
       data: {
         stripeCustomerId: data.id,
@@ -59,30 +60,28 @@ export async function getData({
 export default async function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-
   if (!user) {
-    redirect("/");
+    return redirect("/");
   }
-
   await getData({
     email: user.email as string,
     firstName: user.given_name as string,
     id: user.id as string,
     lastName: user.family_name as string,
-    profileImage: user.picture as string,
+    profileImage: user.picture,
   });
 
   return (
     <div className="flex flex-col space-y-6 mt-10">
-      <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr] ">
-        <aside className="hidden md:flex w-[200px] flex-col ">
+      <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+        <aside className="hidden w-[200px] flex-col md:flex">
           <DashboardNav />
         </aside>
-        {children}
+        <main>{children}</main>
       </div>
     </div>
   );
