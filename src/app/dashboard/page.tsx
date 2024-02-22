@@ -2,19 +2,24 @@ import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
-
 import { Edit, File } from "lucide-react";
-import { revalidatePath } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import Link from "next/link";
 import { DeleteNote } from "../components/submmitions-button";
 
 async function getData(userId: string) {
-  const data = await prisma.note.findMany({
+  noStore();
+  const data = await prisma.user.findUnique({
     where: {
-      userId: userId,
+      id: userId,
     },
-    orderBy: {
-      createdAt: "desc",
+    select: {
+      Notes: true,
+      Subscription: {
+        select: {
+          status: true,
+        },
+      },
     },
   });
 
@@ -49,12 +54,18 @@ export default async function Dashboard() {
           </p>
         </div>
 
-        <Button asChild>
-          <Link href="/dashboard/new">Create a new Note</Link>
-        </Button>
+        {data?.Subscription?.status == "active" ? (
+          <Button asChild>
+            <Link href="/dashboard/new">Create a new Note</Link>
+          </Button>
+        ) : (
+          <Button asChild>
+            <Link href="/dashboard/billing">Create a new Note</Link>
+          </Button>
+        )}
       </div>
 
-      {data.length < 1 ? (
+      {data?.Notes.length == 0 ? (
         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-out-50">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
             <File className="w-10 h-10 text-primary" />
@@ -68,13 +79,19 @@ export default async function Dashboard() {
             you can see them right here.
           </p>
 
-          <Button asChild>
-            <Link href="/dashboard/new">Create a new Note</Link>
-          </Button>
+          {data?.Subscription?.status == "active" ? (
+            <Button asChild>
+              <Link href="/dashboard/new">Create a new Note</Link>
+            </Button>
+          ) : (
+            <Button asChild>
+              <Link href="/dashboard/billing">Create a new Note</Link>
+            </Button>
+          )}
         </div>
       ) : (
         <div className="gap-y-4 flex flex-col">
-          {data.map((note) => (
+          {data?.Notes.map((note) => (
             <Card
               key={note.id}
               className="flex items-center justify-between p-4"
