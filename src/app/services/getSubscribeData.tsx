@@ -1,4 +1,4 @@
-import prisma from "@/app/[lang]/lib/db";
+import prisma from "@/app/lib/db";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function getData(userId: string) {

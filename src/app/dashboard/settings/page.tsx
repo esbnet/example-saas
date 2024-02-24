@@ -1,4 +1,4 @@
-import { SubmmitButton } from "@/app/[lang]/components/submmitions-button";
+import { SubmmitButton } from "@/app/components/submmitions-button";
 import {
   Card,
   CardContent,

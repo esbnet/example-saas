@@ -1,6 +1,4 @@
 import { Toaster } from "@/components/ui/sonner";
-import { Locale, i18n } from "@/config/i18n.config";
-import { getDictionaryServerOnly } from "@/dictionaries/default-dictionare-server-only";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -11,11 +9,9 @@ import prisma from "./lib/db";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const dict = getDictionaryServerOnly(i18n.defaultLocale as Locale);
-
 export const metadata: Metadata = {
-  title: dict.site.appName,
-  description: dict.site.appDescription,
+  title: "MySaas",
+  description: "Manager your notes with ease.",
 };
 
 async function getData(userId: string) {
@@ -32,17 +28,10 @@ async function getData(userId: string) {
   }
 }
 
-export async function generateStaticParams() {
-  const languages = i18n.locales.map((lang) => ({ lang }));
-  return languages;
-}
-
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: Locale };
 }>) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -50,7 +39,7 @@ export default async function RootLayout({
   const data = await getData(user?.id as string);
 
   return (
-    <html lang={params.lang}>
+    <html lang="en">
       <body
         className={`${inter.className} ${data?.colorScheme ?? "theme-orange"}`}
       >

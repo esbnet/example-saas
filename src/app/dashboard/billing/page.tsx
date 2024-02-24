@@ -1,9 +1,9 @@
 import {
   StripePortal,
   StripeSubscriptionCreationButton,
-} from "@/app/[lang]/components/submmitions-button";
-import prisma from "@/app/[lang]/lib/db";
-import { getStripeSession, stripe } from "@/app/[lang]/lib/stripe";
+} from "@/app/components/submmitions-button";
+import prisma from "@/app/lib/db";
+import { getStripeSession, stripe } from "@/app/lib/stripe";
 import {
   Card,
   CardContent,
