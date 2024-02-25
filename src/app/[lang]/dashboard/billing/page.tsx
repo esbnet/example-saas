@@ -1,10 +1,4 @@
 import {
-  StripePortal,
-  StripeSubscriptionCreationButton,
-} from "@/app/components/submmitions-button";
-import prisma from "@/app/lib/db";
-import { getStripeSession, stripe } from "@/app/lib/stripe";
-import {
   Card,
   CardContent,
   CardDescription,
@@ -15,6 +9,15 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { CheckCircle2 } from "lucide-react";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
+import {
+  StripePortal,
+  StripeSubscriptionCreationButton,
+} from "../../components/submmitions-button";
+import prisma from "../../lib/db";
+import { getStripeSession, stripe } from "../../lib/stripe";
+
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
 
 const featureItems = [
   { name: "Lorem Ipsum something" },
@@ -43,10 +46,16 @@ async function getData(userId: string) {
   return data;
 }
 
-export default async function BillingPage() {
+export default async function BillingPage({
+  params,
+}: {
+  params: { lang: Locale };
+}) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const data = await getData(user?.id as string);
+
+  const dic = getDictionaryServerOnly(params.lang);
 
   async function createSubscription() {
     "use server";
@@ -94,25 +103,21 @@ export default async function BillingPage() {
       <div className="grid items-start gap-8">
         <div className="flex items-center justify-between px-2">
           <div className="grid gap-1">
-            <h1 className="text-3xl md:text-4xl ">Subscription</h1>
+            <h1 className="text-3xl md:text-4xl ">{dic.billing.cardButton}</h1>
             <p className="text-lg text-muted-foreground">
-              Settings reagding your subscription
+              {dic.billing.description}
             </p>
           </div>
         </div>
 
         <Card className="w-full lg:w-2/3">
           <CardHeader>
-            <CardTitle>Edit Subscription</CardTitle>
-            <CardDescription>
-              Click on the button below, this will give you the opportunity to
-              change your payment details and view your statement at the same
-              time.
-            </CardDescription>
+            <CardTitle>{dic.billing.cardTitle}</CardTitle>
+            <CardDescription>{dic.billing.cardDescription}</CardDescription>
           </CardHeader>
           <CardContent>
             <form action={createCustomerPortal}>
-              <StripePortal />
+              <StripePortal lang={params.lang} />
             </form>
           </CardContent>
         </Card>
@@ -150,7 +155,7 @@ export default async function BillingPage() {
           </ul>
 
           <form className="w-full" action={createSubscription}>
-            <StripeSubscriptionCreationButton />
+            <StripeSubscriptionCreationButton lang={params.lang} />
           </form>
         </div>
       </Card>

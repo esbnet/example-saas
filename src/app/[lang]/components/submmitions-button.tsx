@@ -4,8 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Loader2, Trash2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
-export function SubmmitButton() {
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryUseClient } from "@/dictionaries/default-dictionary-use-client";
+
+export function SubmmitButton({ lang }: { lang: Locale }) {
   const { pending } = useFormStatus();
+
+  const dic = getDictionaryUseClient(lang);
 
   return (
     <>
@@ -16,45 +21,49 @@ export function SubmmitButton() {
         </Button>
       ) : (
         <Button className="w-fit" type="submit">
-          Save Changes
+          {dic.settings.buttonSave}
         </Button>
       )}
     </>
   );
 }
 
-export function StripeSubscriptionCreationButton() {
+export function StripeSubscriptionCreationButton({ lang }: { lang: Locale }) {
   const { pending } = useFormStatus();
+
+  const dic = getDictionaryUseClient(lang);
 
   return (
     <>
       {pending ? (
         <Button disabled className="w-full">
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Please wait...
+          {dic.submmitButton.wait}
         </Button>
       ) : (
         <Button type="submit" className="w-full">
-          Create Subscription
+          {dic.submmitButton.createSubscription}
         </Button>
       )}
     </>
   );
 }
 
-export function StripePortal() {
+export function StripePortal({ lang }: { lang: Locale }) {
   const { pending } = useFormStatus();
+
+  const dic = getDictionaryUseClient(lang);
 
   return (
     <>
       {pending ? (
         <Button disabled className="w-fit">
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Please wait...
+          {dic.submmitButton.wait}
         </Button>
       ) : (
         <Button type="submit" className="w-fit">
-          View payment details
+          {dic.submmitButton.viewDetails}
         </Button>
       )}
     </>

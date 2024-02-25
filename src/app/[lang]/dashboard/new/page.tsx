@@ -1,5 +1,3 @@
-import { SubmmitButton } from "@/app/components/submmitions-button";
-import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,59 +11,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { SubmmitButton } from "../../components/submmitions-button";
+import prisma from "../../lib/db";
 
-async function getData({ userId, noteId }: { noteId: string; userId: string }) {
+export default async function NewNoteRoute() {
   noStore();
-  const data = await prisma.note.findUnique({
-    where: {
-      id: noteId,
-      userId: userId as string,
-    },
-    select: {
-      title: true,
-      description: true,
-      id: true,
-    },
-  });
-
-  return data;
-}
-
-export default async function EditNoteById({
-  params,
-}: {
-  params: { id: string };
-}) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  const data = await getData({
-    userId: user?.id as string,
-    noteId: params.id as string,
-  });
+  if (!user) {
+    throw new Error("Not authorized");
+  }
 
   async function postData(formDate: FormData) {
     "use server";
 
-    if (!user) {
-      throw new Error("Not authorized");
-    }
-
-    await prisma.note.update({
-      where: {
-        id: data?.id,
-        userId: user.id as string,
-      },
+    await prisma.note.create({
       data: {
+        userId: user?.id as string,
         title: formDate.get("title") as string,
         description: formDate.get("description") as string,
       },
     });
-
-    revalidatePath("/dashboard", "layout");
 
     return redirect("/dashboard");
   }
@@ -74,9 +44,9 @@ export default async function EditNoteById({
     <Card>
       <form action={postData}>
         <CardHeader>
-          <CardTitle>Edit Note</CardTitle>
+          <CardTitle>New Note</CardTitle>
           <CardDescription>
-            Right here you can now edit your note
+            Right here you can now create your new notes
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-y-5">
@@ -88,17 +58,14 @@ export default async function EditNoteById({
               name="title"
               id="title"
               placeholder="Title for you note"
-              defaultValue={data?.title}
             />
           </div>
           <div className="flex flex-col gap-y-2">
             <Label>Description</Label>
             <Textarea
               required
-              id="description"
               name="description"
               placeholder="Describe your note as you want..."
-              defaultValue={data?.description}
               cols={30}
               rows={10}
             />

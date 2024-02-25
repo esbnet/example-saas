@@ -1,4 +1,3 @@
-import { SubmmitButton } from "@/app/components/submmitions-button";
 import {
   Card,
   CardContent,
@@ -21,7 +20,11 @@ import {
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { SubmmitButton } from "../../components/submmitions-button";
 import prisma from "../../lib/db";
+
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
 
 async function getData(userId: string) {
   noStore();
@@ -39,9 +42,15 @@ async function getData(userId: string) {
   return data;
 }
 
-export default async function Settings() {
+export default async function Settings({
+  params,
+}: {
+  params: { lang: Locale };
+}) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
+  const dic = getDictionaryServerOnly(params.lang);
 
   const data = await getData(user?.id as string);
 
@@ -69,23 +78,22 @@ export default async function Settings() {
     <div className="grid item-start gap-8">
       <div className="flex items-center justify-between px-2">
         <div className="grid gap-1">
-          <h1 className="text-3xl md:text-4xl"> Settings </h1>
-          <p className="text-lg text-muted-foreground">Your Profile settings</p>
+          <h1 className="text-3xl md:text-4xl"> {dic.settings.title} </h1>
+          <p className="text-lg text-muted-foreground">
+            {dic.settings.description}
+          </p>
         </div>
       </div>
       <Card>
         <form action={postData}>
           <CardHeader>
-            <CardTitle>General Data</CardTitle>
-            <CardDescription>
-              Please provide general informarion about yourself. Don{"'"}t
-              forgot to save.
-            </CardDescription>
+            <CardTitle>{dic.settings.formTitle}</CardTitle>
+            <CardDescription>{dic.settings.formDescription}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="name">Your Name</Label>
+                <Label htmlFor="name">{dic.settings.labelName}</Label>
                 <Input
                   name="name"
                   type="text"
@@ -95,7 +103,7 @@ export default async function Settings() {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="email">Your Email</Label>
+                <Label htmlFor="email">{dic.settings.labelEmail}</Label>
                 <Input
                   name="email"
                   type="email"
@@ -106,7 +114,9 @@ export default async function Settings() {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="color-scheme">Color Schema</Label>
+                <Label htmlFor="color-scheme">
+                  {dic.settings.labelColorSchema}
+                </Label>
                 <Select name="color" defaultValue={data?.colorScheme as string}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a color" />
@@ -117,40 +127,40 @@ export default async function Settings() {
                           value="theme-green"
                           className="text-green-500"
                         >
-                          Green
+                          {dic.colors.green}
                         </SelectItem>
                         <SelectItem
                           value="theme-blue"
                           className="text-blue-500"
                         >
-                          Blue
+                          {dic.colors.blue}
                         </SelectItem>
                         <SelectItem
                           value="theme-violet"
                           className="text-violet-500"
                         >
-                          Violet
+                          {dic.colors.violet}
                         </SelectItem>
                         <SelectItem
                           value="theme-yellow"
                           className="text-yellow-500"
                         >
-                          Yellow
+                          {dic.colors.yellow}
                         </SelectItem>
                         <SelectItem
                           value="theme-orange"
                           className="text-orange-500"
                         >
-                          Orange
+                          {dic.colors.orange}
                         </SelectItem>
                         <SelectItem value="theme-red" className="text-red-500">
-                          Red
+                          {dic.colors.red}
                         </SelectItem>
                         <SelectItem
                           value="theme-rose"
                           className="text-rose-500"
                         >
-                          Rose
+                          {dic.colors.rose}
                         </SelectItem>
                       </SelectGroup>
                     </SelectContent>
@@ -160,7 +170,7 @@ export default async function Settings() {
             </div>
           </CardContent>
           <CardFooter>
-            <SubmmitButton />
+            <SubmmitButton lang={params.lang} />
           </CardFooter>
         </form>
       </Card>

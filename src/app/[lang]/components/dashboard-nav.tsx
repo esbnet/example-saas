@@ -3,13 +3,20 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navItems } from "./user-nav";
+
+import { CreditCard, Home, Settings } from "lucide-react";
+
+export const navItems = [
+  { name: "Home", href: "/dashboard", icon: Home },
+  { name: "Settins", href: "/dashboard/settings", icon: Settings },
+  { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
+];
 
 export default function DashboardNav() {
   const pathName = usePathname();
 
   return (
-    <nav className="grid items-start gap-2">
+    <nav className="grid items-start gap-2 border border-r-primary">
       {navItems.map((item) => (
         <Link key={item.name} href={item.href}>
           <span
