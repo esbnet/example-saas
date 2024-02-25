@@ -17,6 +17,9 @@ import { redirect } from "next/navigation";
 import { SubmmitButton } from "../../../components/submmitions-button";
 import prisma from "../../../lib/db";
 
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+
 async function getData({ userId, noteId }: { noteId: string; userId: string }) {
   noStore();
   const data = await prisma.note.findUnique({
@@ -37,10 +40,12 @@ async function getData({ userId, noteId }: { noteId: string; userId: string }) {
 export default async function EditNoteById({
   params,
 }: {
-  params: { id: string };
+  params: { id: string; lang: Locale };
 }) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
+  const dic = getDictionaryServerOnly(params.lang);
 
   const data = await getData({
     userId: user?.id as string,
@@ -108,7 +113,7 @@ export default async function EditNoteById({
           <Button variant="destructive" asChild>
             <Link href="/dashboard">Cancel</Link>
           </Button>
-          <SubmmitButton />
+          <SubmmitButton lang={params.lang} />
         </CardFooter>
       </form>
     </Card>

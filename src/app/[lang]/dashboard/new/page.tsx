@@ -17,7 +17,16 @@ import { redirect } from "next/navigation";
 import { SubmmitButton } from "../../components/submmitions-button";
 import prisma from "../../lib/db";
 
-export default async function NewNoteRoute() {
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+
+export default async function NewNoteRoute({
+  params,
+}: {
+  params: { lang: Locale };
+}) {
+  const dic = getDictionaryServerOnly(params.lang);
+
   noStore();
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -44,20 +53,18 @@ export default async function NewNoteRoute() {
     <Card>
       <form action={postData}>
         <CardHeader>
-          <CardTitle>New Note</CardTitle>
-          <CardDescription>
-            Right here you can now create your new notes
-          </CardDescription>
+          <CardTitle>{dic.newNote.title} </CardTitle>
+          <CardDescription>{dic.newNote.description}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-y-5">
           <div className="flex flex-col gap-y-2">
-            <Label>Title</Label>
+            <Label>{dic.newNote.labelTitle}</Label>
             <Input
               required
               type="text"
               name="title"
               id="title"
-              placeholder="Title for you note"
+              placeholder={dic.newNote.labelTitle}
             />
           </div>
           <div className="flex flex-col gap-y-2">
@@ -65,7 +72,7 @@ export default async function NewNoteRoute() {
             <Textarea
               required
               name="description"
-              placeholder="Describe your note as you want..."
+              placeholder={dic.newNote.labelDescription}
               cols={30}
               rows={10}
             />
@@ -75,7 +82,7 @@ export default async function NewNoteRoute() {
           <Button variant="destructive" asChild>
             <Link href="/dashboard">Cancel</Link>
           </Button>
-          <SubmmitButton />
+          <SubmmitButton lang={params.lang} />
         </CardFooter>
       </form>
     </Card>
