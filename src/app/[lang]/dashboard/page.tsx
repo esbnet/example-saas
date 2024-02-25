@@ -1,4 +1,3 @@
-import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -6,6 +5,10 @@ import { Edit, File } from "lucide-react";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import Link from "next/link";
 import { DeleteNote } from "../components/submmitions-button";
+import prisma from "../lib/db";
+
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
 
 async function getData(userId: string) {
   noStore();
@@ -26,10 +29,16 @@ async function getData(userId: string) {
   return data;
 }
 
-export default async function Dashboard() {
+export default async function Dashboard({
+  params,
+}: {
+  params: { lang: Locale };
+}) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const data = await getData(user?.id as string);
+
+  const dic = getDictionaryServerOnly(params.lang);
 
   async function deleteNote(formDate: FormData) {
     "use server";
@@ -48,19 +57,19 @@ export default async function Dashboard() {
     <div className="grid items-start gap-y-8">
       <div className="flex items-center justify-between px-2">
         <div className="grid gap-1">
-          <h1 className="text-3xl md:text-4xl">Your Notes</h1>
+          <h1 className="text-3xl md:text-4xl">{dic.dashboard.title}</h1>
           <p className="text-lg text-muted-foreground">
-            Here you can see and create new notes
+            {dic.dashboard.description}
           </p>
         </div>
 
         {data?.Subscription?.status == "active" ? (
           <Button asChild>
-            <Link href="/dashboard/new">Create a new Note</Link>
+            <Link href="/dashboard/new">{dic.dashboard.createNote}</Link>
           </Button>
         ) : (
           <Button asChild>
-            <Link href="/dashboard/billing">Create a new Note</Link>
+            <Link href="/dashboard/billing">{dic.dashboard.createNote}</Link>
           </Button>
         )}
       </div>
@@ -71,21 +80,18 @@ export default async function Dashboard() {
             <File className="w-10 h-10 text-primary" />
           </div>
 
-          <h2 className="mt-6 text-xg font-semibold">
-            You don{"'"}t have any notes created
-          </h2>
+          <h2 className="mt-6 text-xg font-semibold">{dic.dashboard.noNote}</h2>
           <p className="mb-8 mt-2 text-center text-sm leading-6 text-muted-foreground max-w-sm mx-auto">
-            You currently don{"'"}t have any notes. Please, create some so that
-            you can see them right here.
+            {dic.dashboard.info}
           </p>
 
           {data?.Subscription?.status == "active" ? (
             <Button asChild>
-              <Link href="/dashboard/new">Create a new Note</Link>
+              <Link href="/dashboard/new">{dic.dashboard.createNote}</Link>
             </Button>
           ) : (
             <Button asChild>
-              <Link href="/dashboard/billing">Create a new Note</Link>
+              <Link href="/dashboard/billing">{dic.dashboard.createNote}</Link>
             </Button>
           )}
         </div>

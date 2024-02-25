@@ -14,12 +14,6 @@ import { CreditCard, DoorClosed, Home, Settings } from "lucide-react";
 
 import Link from "next/link";
 
-export const navItems = [
-  { name: "Home", href: "/dashboard", icon: Home },
-  { name: "Settins", href: "/dashboard/settings", icon: Settings },
-  { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
-];
-
 export function UserNav({
   name,
   email,
@@ -29,6 +23,12 @@ export function UserNav({
   email: string;
   image: string;
 }) {
+  const navItems = [
+    { name: "Home", href: "/dashboard", icon: Home },
+    { name: "Settins", href: "/dashboard/settings", icon: Settings },
+    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
+  ];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
