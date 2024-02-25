@@ -41,6 +41,12 @@ export const enUS = {
       "Click on the button below, this will give you the opportunity to change your payment details and view your statement at the same time.",
     cardButton: "View payment details",
   },
+  newNote: {
+    title: "New Note",
+    description: "Right here you can now create your new notes",
+    labelTitle: "Title for you note",
+    labelDescription: "Describe your note as you want...",
+  },
   colors: {
     title: "Color",
     green: "Green",
@@ -60,5 +66,6 @@ export const enUS = {
     wait: "Please wait...",
     viewDetails: "View payment details",
     createSubscription: "Create Subscription",
+    cancel: "Cancel",
   },
 };

@@ -41,6 +41,12 @@ export const ptBR = {
       "Clique no botão abaixo, isso lhe dará a oportunidade de alterar seus dados de pagamento e visualizar seu extrato ao mesmo tempo.",
     cardButton: "Ver detalhes de pagamento",
   },
+  newNote: {
+    title: "Nova Nota",
+    description: "Aqui você pode criar suas novas notas",
+    labelTitle: "Título da sua nota",
+    labelDescription: "Descreva sua nota como desejar...",
+  },
   colors: {
     title: "Cores",
     green: "Verde",
@@ -60,5 +66,6 @@ export const ptBR = {
     wait: "Por favor, aguarde...",
     viewDetails: "Ver detalhes do pagamento",
     createSubscription: "Criar assinatura",
+    cancel: "Cancelar",
   },
 };
