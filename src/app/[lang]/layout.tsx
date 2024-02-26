@@ -13,7 +13,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export function generateStaticParams() {
+export function generateDynamicParams() {
   return [{ locale: "pt-BR" }, { locale: "en-US" }];
 }
 
