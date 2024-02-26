@@ -9,23 +9,16 @@ import "./globals.css";
 import prisma from "./lib/db";
 
 import { NextIntlClientProvider } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const inter = Inter({ subsets: ["latin"] });
-
-// export async function generateStaticParams() {
-//   const languages = i18n.locales.map((lang) => ({
-//     lang,
-//   }));
-
-//   return languages;
-// }
 
 export function generateStaticParams() {
   return [{ locale: "pt-BR" }, { locale: "en-US" }];
 }
 
 export const metadata: Metadata = {
-  title: "MySaas",
+  title: "memo+",
   description: "Manager your notes with ease.",
 };
 
@@ -55,6 +48,8 @@ export default async function RootLayout({
   const data = await getData(user?.id as string);
 
   const lang: Locale = params.lang as Locale;
+
+  unstable_setRequestLocale(params.lang);
 
   return (
     <html lang={params.lang}>

@@ -33,11 +33,17 @@ export async function Header({ lang }: { lang: Locale }) {
         </Link>
         <div className="flex items-center gap-x-5">
           {(await isAuthenticated()) ? (
-            <UserNav
-              email={user?.email as string}
-              image={user?.picture as string}
-              name={user?.given_name as string}
-            />
+            <>
+              <UserNav
+                email={user?.email as string}
+                image={user?.picture as string}
+                name={user?.given_name as string}
+              />
+              <div>
+                <ThemeToggle />
+                <LanguageToggle />
+              </div>
+            </>
           ) : (
             <div className="flex items-center gap-x-5">
               <LoginLink>
