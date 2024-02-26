@@ -34,15 +34,15 @@ export async function Header({ lang }: { lang: Locale }) {
         <div className="flex items-center gap-x-5">
           {(await isAuthenticated()) ? (
             <>
+              <div>
+                <ThemeToggle />
+                <LanguageToggle />
+              </div>
               <UserNav
                 email={user?.email as string}
                 image={user?.picture as string}
                 name={user?.given_name as string}
               />
-              <div>
-                <ThemeToggle />
-                <LanguageToggle />
-              </div>
             </>
           ) : (
             <div className="flex items-center gap-x-5">
