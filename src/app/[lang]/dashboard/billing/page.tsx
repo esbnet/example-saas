@@ -12,7 +12,7 @@ import { redirect } from "next/navigation";
 import {
   StripePortal,
   StripeSubscriptionCreationButton,
-} from "../../components/submmitions-button";
+} from "../../components/submitions-button";
 import prisma from "../../lib/db";
 import { getStripeSession, stripe } from "../../lib/stripe";
 

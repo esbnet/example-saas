@@ -14,9 +14,9 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { SubmmitButton } from "../../../components/submmitions-button";
 import prisma from "../../../lib/db";
 
+import { SubmitButton } from "@/app/[lang]/components/submitions-button";
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
 
@@ -113,7 +113,7 @@ export default async function EditNoteById({
           <Button variant="destructive" asChild>
             <Link href="/dashboard">Cancel</Link>
           </Button>
-          <SubmmitButton lang={params.lang} />
+          <SubmitButton lang={params.lang} />
         </CardFooter>
       </form>
     </Card>
