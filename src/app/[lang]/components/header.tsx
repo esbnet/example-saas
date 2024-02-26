@@ -12,6 +12,8 @@ import { UserNav } from "./user-nav";
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
 
+import LanguageToggle from "./language-toggle";
+
 export async function Header({ lang }: { lang: Locale }) {
   const { isAuthenticated, getUser } = getKindeServerSession();
   const user = await getUser();
@@ -30,7 +32,6 @@ export async function Header({ lang }: { lang: Locale }) {
           </h1>
         </Link>
         <div className="flex items-center gap-x-5">
-          <ThemeToggle />
           {(await isAuthenticated()) ? (
             <UserNav
               email={user?.email as string}
@@ -44,9 +45,13 @@ export async function Header({ lang }: { lang: Locale }) {
               </LoginLink>
               <RegisterLink>
                 <Button variant="secondary" size="sm">
-                  {dic.app.signup}
+                  {dic.app.register}
                 </Button>
               </RegisterLink>
+              <div>
+                <ThemeToggle />
+                <LanguageToggle />
+              </div>
             </div>
           )}
         </div>

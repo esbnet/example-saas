@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import { Locale, i18n } from "@/config/i18n.config";
+import { Locale } from "@/config/i18n.config";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -8,14 +8,20 @@ import { ThemeProvider } from "./components/theme-provider";
 import "./globals.css";
 import prisma from "./lib/db";
 
+import { NextIntlClientProvider } from "next-intl";
+
 const inter = Inter({ subsets: ["latin"] });
 
-export async function generateStaticParams() {
-  const languages = i18n.locales.map((lang) => ({
-    lang,
-  }));
+// export async function generateStaticParams() {
+//   const languages = i18n.locales.map((lang) => ({
+//     lang,
+//   }));
 
-  return languages;
+//   return languages;
+// }
+
+export function generateStaticParams() {
+  return [{ locale: "pt-BR" }, { locale: "en-US" }];
 }
 
 export const metadata: Metadata = {
@@ -61,8 +67,10 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header lang={lang} />
-          {children}
+          <NextIntlClientProvider locale={lang}>
+            <Header lang={lang} />
+            {children}
+          </NextIntlClientProvider>
         </ThemeProvider>
         <Toaster />
       </body>

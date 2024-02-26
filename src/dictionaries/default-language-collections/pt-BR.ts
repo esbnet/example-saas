@@ -5,9 +5,9 @@ export const ptBR = {
     slogan: "no controle sempre",
     title: "Crie notas com facilidade",
     description:
-      "Bem-vindo a plataforma moderna e alegre para registrar e organizar suas notas de texto! Com uma interface intuitiva e recursos inovadores Memo+ torna a experiência de tomar notas uma verdadeira util",
+      "Bem-vindo a plataforma moderna e alegre para registrar e organizar suas notas de texto! Com uma interface intuitiva e recursos inovadores Memo+ torna a experiência de tomar notas realmente útil",
     signin: "Entrar",
-    signup: "Inscrever-se",
+    register: "Registrar",
     signupButton: "Inscreva-se gratuitamente",
   },
   dashboard: {
@@ -62,7 +62,7 @@ export const ptBR = {
     menu2: "Anotações",
     menu3: "Configurações",
   },
-  submmitButton: {
+  submitButton: {
     wait: "Por favor, aguarde...",
     viewDetails: "Ver detalhes do pagamento",
     createSubscription: "Criar assinatura",
