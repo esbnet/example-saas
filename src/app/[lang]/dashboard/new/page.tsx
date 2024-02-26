@@ -12,13 +12,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore as noStore } from "next/cache";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { SubmmitButton } from "../../components/submmitions-button";
 import prisma from "../../lib/db";
 
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+import Link from "next/link";
+import { SubmitButton } from "../../components/submitions-button";
 
 export default async function NewNoteRoute({
   params,
@@ -80,9 +80,9 @@ export default async function NewNoteRoute({
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="destructive" asChild>
-            <Link href="/dashboard">Cancel</Link>
+            <Link href="/dashboard">{dic.submitButton.cancel}</Link>
           </Button>
-          <SubmmitButton lang={params.lang} />
+          <SubmitButton lang={params.lang} />
         </CardFooter>
       </form>
     </Card>

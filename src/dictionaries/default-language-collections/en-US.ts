@@ -7,7 +7,7 @@ export const enUS = {
     description:
       "Welcome to the modern and cheerful platform for recording and organizing your text notes! With an intuitive interface and innovative features Memo+ makes the note-taking experience truly useful",
     signin: "Sign In",
-    signup: "Sign Up",
+    register: "Register",
     signupButton: "Sign up for free",
   },
   dashboard: {
@@ -62,7 +62,7 @@ export const enUS = {
     menu2: "Settings",
     menu3: "Billing",
   },
-  submmitButton: {
+  submitButton: {
     wait: "Please wait...",
     viewDetails: "View payment details",
     createSubscription: "Create Subscription",

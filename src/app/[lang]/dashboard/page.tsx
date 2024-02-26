@@ -4,7 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Edit, File } from "lucide-react";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import Link from "next/link";
-import { DeleteNote } from "../components/submmitions-button";
+import { DeleteNote } from "../components/submitions-button";
 import prisma from "../lib/db";
 
 import { Locale } from "@/config/i18n.config";
