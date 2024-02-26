@@ -13,6 +13,7 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { CreditCard, DoorClosed, Home, Settings } from "lucide-react";
 
 import Link from "next/link";
+import { firstLetterToName } from "../util/first-letter-to-name";
 
 export function UserNav({
   name,
@@ -25,17 +26,19 @@ export function UserNav({
 }) {
   const navItems = [
     { name: "Home", href: "/dashboard", icon: Home },
-    { name: "Settins", href: "/dashboard/settings", icon: Settings },
+    { name: "Settings", href: "/dashboard/settings", icon: Settings },
     { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
   ];
+
+  const firstLettersName = firstLetterToName(name);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10 rounded-full">
-            <AvatarImage src={image} alt="" />
-            <AvatarFallback>ESB</AvatarFallback>
+            <AvatarImage src={image} alt="photo" />
+            <AvatarFallback delayMs={500}>{firstLettersName}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
