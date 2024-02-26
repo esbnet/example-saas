@@ -20,11 +20,11 @@ import {
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { SubmmitButton } from "../../components/submmitions-button";
 import prisma from "../../lib/db";
 
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+import { SubmitButton } from "../../components/submitions-button";
 
 async function getData(userId: string) {
   noStore();
@@ -170,7 +170,7 @@ export default async function Settings({
             </div>
           </CardContent>
           <CardFooter>
-            <SubmmitButton lang={params.lang} />
+            <SubmitButton lang={params.lang} />
           </CardFooter>
         </form>
       </Card>
