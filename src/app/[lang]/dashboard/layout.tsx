@@ -2,11 +2,12 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
-import DashboardNav from "../components/dashboard-nav";
+
 import prisma from "../lib/db";
 import { stripe } from "../lib/stripe";
 
 import { Locale } from "@/config/i18n.config";
+import DashboardNav from "../components/dashboard-nav";
 
 async function getData({
   email,
@@ -61,10 +62,10 @@ async function getData({
 
 export default async function DashboardLayout({
   children,
-  lang,
+  params,
 }: {
   children: ReactNode;
-  lang: Locale;
+  params: { lang: Locale };
 }) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -83,7 +84,7 @@ export default async function DashboardLayout({
     <div className="flex flex-col space-y-6 mt-10">
       <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
-          <DashboardNav lang={lang} />
+          <DashboardNav lang={params.lang} />
         </aside>
         <main>{children}</main>
       </div>
