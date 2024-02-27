@@ -60,7 +60,7 @@ export const ptBR = {
   menu: {
     menu1: "Painel",
     menu2: "Anotações",
-    menu3: "Configurações",
+    menu3: "Pagamento",
     logout: "Sair",
   },
   submitButton: {
