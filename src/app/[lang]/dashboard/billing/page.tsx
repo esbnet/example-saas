@@ -18,13 +18,12 @@ import { getStripeSession, stripe } from "../../lib/stripe";
 
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const featureItems = [
-  { name: "Lorem Ipsum something" },
-  { name: "Lorem Ipsum something" },
-  { name: "Lorem Ipsum something" },
-  { name: "Lorem Ipsum something" },
-  { name: "Lorem Ipsum something" },
+  { name: "Inclusão de notas" },
+  { name: "Pesquisa rápida" },
+  { name: "Notas ilimitadas" },
 ];
 
 async function getData(userId: string) {
@@ -51,6 +50,7 @@ export default async function BillingPage({
 }: {
   params: { lang: Locale };
 }) {
+  unstable_setRequestLocale(params.lang);
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const data = await getData(user?.id as string);

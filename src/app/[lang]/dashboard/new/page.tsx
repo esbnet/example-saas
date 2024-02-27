@@ -17,6 +17,7 @@ import prisma from "../../lib/db";
 
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+import { unstable_setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { SubmitButton } from "../../components/submitions-button";
 
@@ -25,6 +26,7 @@ export default async function NewNoteRoute({
 }: {
   params: { lang: Locale };
 }) {
+  unstable_setRequestLocale(params.lang);
   const dic = getDictionaryServerOnly(params.lang);
 
   noStore();

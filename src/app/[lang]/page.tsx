@@ -5,8 +5,10 @@ import { redirect } from "next/navigation";
 
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 export default async function Home({ params }: { params: { lang: Locale } }) {
+  unstable_setRequestLocale(params.lang);
   const { isAuthenticated } = getKindeServerSession();
 
   const dic = getDictionaryServerOnly(params.lang);
