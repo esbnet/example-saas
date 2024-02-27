@@ -24,6 +24,7 @@ import prisma from "../../lib/db";
 
 import { Locale } from "@/config/i18n.config";
 import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { SubmitButton } from "../../components/submitions-button";
 
 async function getData(userId: string) {
@@ -47,6 +48,7 @@ export default async function Settings({
 }: {
   params: { lang: Locale };
 }) {
+  unstable_setRequestLocale(params.lang);
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
