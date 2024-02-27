@@ -35,13 +35,14 @@ export async function Header({ lang }: { lang: Locale }) {
           {(await isAuthenticated()) ? (
             <>
               <div>
-                <ThemeToggle />
-                <LanguageToggle />
+                <ThemeToggle lang={lang} />
+                <LanguageToggle lang={lang} />
               </div>
               <UserNav
                 email={user?.email as string}
                 image={user?.picture as string}
                 name={user?.given_name as string}
+                lang={lang}
               />
             </>
           ) : (
@@ -55,8 +56,8 @@ export async function Header({ lang }: { lang: Locale }) {
                 </Button>
               </RegisterLink>
               <div>
-                <ThemeToggle />
-                <LanguageToggle />
+                <ThemeToggle lang={lang} />
+                <LanguageToggle lang={lang} />
               </div>
             </div>
           )}

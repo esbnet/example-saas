@@ -61,11 +61,23 @@ export const enUS = {
     menu1: "Home",
     menu2: "Settings",
     menu3: "Billing",
+    logout: "Logout",
   },
   submitButton: {
     wait: "Please wait...",
     viewDetails: "View payment details",
     createSubscription: "Create Subscription",
     cancel: "Cancel",
+  },
+  toggleLanguage: {
+    titulo: "Toggle Language",
+    ptBR: "Portuguese",
+    enUS: "English",
+  },
+  toggleTheme: {
+    titulo: "Toggle Theme",
+    light: "Light",
+    dark: "Dark",
+    system: "System",
   },
 };

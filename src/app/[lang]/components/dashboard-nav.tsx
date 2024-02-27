@@ -6,17 +6,22 @@ import { usePathname } from "next/navigation";
 
 import { CreditCard, Home, Settings } from "lucide-react";
 
-export const navItems = [
-  { name: "Home", href: "/dashboard", icon: Home },
-  { name: "Settins", href: "/dashboard/settings", icon: Settings },
-  { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
-];
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryUseClient } from "@/dictionaries/default-dictionary-use-client";
 
-export default function DashboardNav() {
+export default function DashboardNav({ lang }: { lang: Locale }) {
   const pathName = usePathname();
 
+  const dic = getDictionaryUseClient(lang);
+
+  const navItems = [
+    { name: dic.menu.menu1, href: "/dashboard", icon: Home },
+    { name: dic.menu.menu2, href: "/dashboard/settings", icon: Settings },
+    { name: dic.menu.menu3, href: "/dashboard/billing", icon: CreditCard },
+  ];
+
   return (
-    <nav className="grid items-start gap-2 border border-r-primary">
+    <nav className="grid items-start gap-2 ">
       {navItems.map((item) => (
         <Link key={item.name} href={item.href}>
           <span

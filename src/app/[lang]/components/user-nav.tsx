@@ -15,19 +15,26 @@ import { CreditCard, DoorClosed, Home, Settings } from "lucide-react";
 import Link from "next/link";
 import { firstLetterToName } from "../util/first-letter-to-name";
 
+import { Locale } from "@/config/i18n.config";
+import { getDictionaryServerOnly } from "@/dictionaries/default-dictionary-server-only";
+
 export function UserNav({
   name,
   email,
   image,
+  lang,
 }: {
   name: string;
   email: string;
   image: string;
+  lang: Locale;
 }) {
+  const dic = getDictionaryServerOnly(lang);
+
   const navItems = [
-    { name: "Home", href: "/dashboard", icon: Home },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
-    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
+    { name: dic.menu.menu1, href: "/dashboard", icon: Home },
+    { name: dic.menu.menu2, href: "/dashboard/settings", icon: Settings },
+    { name: dic.menu.menu3, href: "/dashboard/billing", icon: CreditCard },
   ];
 
   const firstLettersName = firstLetterToName(name);
@@ -73,7 +80,7 @@ export function UserNav({
           asChild
         >
           <LogoutLink>
-            Logout
+            {dic.menu.logout}
             <span>
               <DoorClosed className="w-4 h-4" />
             </span>

@@ -58,14 +58,26 @@ export const ptBR = {
     rose: "Rosa",
   },
   menu: {
-    menu1: "Dashboard",
+    menu1: "Painel",
     menu2: "Anotações",
     menu3: "Configurações",
+    logout: "Sair",
   },
   submitButton: {
     wait: "Por favor, aguarde...",
     viewDetails: "Ver detalhes do pagamento",
     createSubscription: "Criar assinatura",
     cancel: "Cancelar",
+  },
+  toggleLanguage: {
+    titulo: "Alternar idioma",
+    ptBR: "Português",
+    enUS: "Inglês",
+  },
+  toggleTheme: {
+    titulo: "Alternar idioma",
+    light: "Claro",
+    dark: "Escuro",
+    system: "Sistema",
   },
 };
