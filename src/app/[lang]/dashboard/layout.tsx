@@ -6,6 +6,8 @@ import DashboardNav from "../components/dashboard-nav";
 import prisma from "../lib/db";
 import { stripe } from "../lib/stripe";
 
+import { Locale } from "@/config/i18n.config";
+
 async function getData({
   email,
   id,
@@ -59,8 +61,10 @@ async function getData({
 
 export default async function DashboardLayout({
   children,
+  lang,
 }: {
   children: ReactNode;
+  lang: Locale;
 }) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -79,7 +83,7 @@ export default async function DashboardLayout({
     <div className="flex flex-col space-y-6 mt-10">
       <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
-          <DashboardNav />
+          <DashboardNav lang={lang} />
         </aside>
         <main>{children}</main>
       </div>
