@@ -14,7 +14,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 const inter = Inter({ subsets: ["latin"] });
 
 export function generateDynamicParams() {
-  return [{ locale: "pt-BR" }, { locale: "en-US" }];
+  return [{ lang: "pt-BR" }, { lang: "en-US" }];
 }
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: string };
+  params: { lang: Locale };
 }>) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
