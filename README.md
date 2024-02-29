@@ -1,6 +1,6 @@
 # Memo+
 
-O Memo Plus e um modelo de aplicativo estilo SaaS, totalmente funcional, que provê um ambiente para gestão de anotações de notas. Nele você faz o registro na plataforma com e-mail ou autorização via rede social, google e facebook. Após o registro a plataforma permite a assinatura do serviço de armazenamento individual de anotações. Como recursos adicionais temos o dark mode, a troca de tema e a troca de idioma.
+O Memo Plus e um modelo de aplicativo estilo SaaS, totalmente funcional, que provê um ambiente para gestão de anotações de notas. Nele você faz o registro na plataforma com e-mail ou autorização via rede social, google e Facebook. Após o registro a plataforma permite a assinatura do serviço de armazenamento individual de anotações. Como recursos adicionais temos o dark mode, a troca de tema e a troca de idioma.
 
 Aos interessados, existe a possibilidade de substituir o serviço de anotação por qualquer outro tipo de serviço aproveitando a estrutura e os recursos já disponíveis. Este modelo foi elaborado justamente para montar esta estrutura inicial e aproveitá-la como template para outros projetos que estou desenvolvendo. Vale lembrar que esta versão inicial será em breve refatorada para a implementação de estruturas como Solid, DDD e testes.
 
@@ -28,7 +28,7 @@ deploy: <https://memo-plus.vercel.app>
 - Next-intl - internacionalização - <https://next-intl-docs.vercel.app>
 - Eslint - padronização, qualidade e estilo de código - <https://eslint.org>
 
-<a id="#servicos"></a>
+[](#servicos)
 
 ## Serviço na web
 
@@ -41,15 +41,18 @@ deploy: <https://memo-plus.vercel.app>
 1. Clone
 
    Escolha a pasta onde deseja armazenar o projeto e digite os comandos abaixo:
+
    `git clone https://github.com/esbnet/example-saas.git`
 
 2. Instalar dependências
 
-   Na pasta raiz do projeto, digite o seguinte comando: `npm install`
+   Na pasta raiz do projeto, digite o seguinte comando:
+
+   `npm install`
 
 3. Configurar variáveis de ambiente
 
-   Para que o sistema rode é necessário configurar as variáveis de ambiente. Para isso, deverá ser consultado a documentação de cada serviço utilizado. [Link acima](#servicos).
+   Para que o sistema rode é necessário configurar as variáveis de ambiente. Para isso, deverá ser consultado a documentação de cada serviço utilizado. <a id="#servicos">Link acima</a>.
    Na pasta raiz, crie o arquivo `.env` e inclua as variáveis abaixo com seus respectivos valores.
 
 ```
@@ -74,7 +77,10 @@ STRIPE_WEBHOOK_SECRET=
 4. Criar banco de dados e tabelas
 
    É pré-requisito configurar as variáveis de ambiente para que o sistema tenha as credenciais de acesso ao Supabase.
-   Na pasta raiz, digite: `npx prisma migrate dev`
+   Na pasta raiz, digite:
+
+   `npx prisma migrate dev`
+
    Este é o comando que criará o banco de dados e as tabelas no ambiente do Supabase.
 
 5. Executar o projeto
@@ -88,6 +94,7 @@ STRIPE_WEBHOOK_SECRET=
 Bons Estudos...
 </center>
 
+</br>
 </br>
 </br>
 
