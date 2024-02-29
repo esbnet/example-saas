@@ -11,6 +11,8 @@ import prisma from "./lib/db";
 import { NextIntlClientProvider } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export function generateDynamicParams() {
@@ -57,6 +59,7 @@ export default async function RootLayout({
       <body
         className={`${inter.className} ${data?.colorScheme ?? "theme-orange"}`}
       >
+        <SpeedInsights />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
