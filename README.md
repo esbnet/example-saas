@@ -1,8 +1,8 @@
 # Memo+
 
-O Memo Plus e um modelo de aplicativo estilo SaaS, totalmente funcional, que provê um ambiente para gestão de anotações de notas. Nele você faz o registro na plataforma com e-mail ou autorização via rede social, google e Facebook. Após o registro a plataforma permite a assinatura do serviço de armazenamento individual de anotações. Como recursos adicionais temos o dark mode, a troca de tema e a troca de idioma.
+O Memo Plus e um modelo de aplicativo SaaS, totalmente funcional que provê um ambiente para gestão de notas. Para utilizá-lo você faz o registro na plataforma com e-mail ou autorização via rede social (Google ou Facebook). Após o registro a plataforma permite a assinatura do serviço de armazenamento individual de anotações. Como recursos adicionais temos o dark mode, a personalização de tema e a troca de idioma.
 
-Aos interessados, existe a possibilidade de substituir o serviço de anotação por qualquer outro tipo de serviço aproveitando a estrutura e os recursos já disponíveis. Este modelo foi elaborado justamente para montar esta estrutura inicial e aproveitá-la como template para outros projetos que estou desenvolvendo. Vale lembrar que esta versão inicial será em breve refatorada para a implementação de estruturas como Solid, DDD e testes.
+Aos interessados, existe a possibilidade de substituir o serviço de anotação por qualquer outro tipo de serviço, aproveitando a estrutura e os recursos já implementados. Este modelo foi elaborado justamente para criar esta estrutura inicial e aproveitá-la como template para outros projetos que estou desenvolvendo. Vale lembrar que esta versão será em breve refatorada para a implementação de técnicas como Solid, DDD e testes.
 
 deploy: <https://memo-plus.vercel.app>
 
@@ -97,16 +97,15 @@ STRIPE_WEBHOOK_SECRET=
    npm run dev
    ```
 
----
+</br></br>
 
 <center>
 Bons Estudos...
-</center>
 
-</br>
-</br>
-</br>
+</br></br></br>
 
-me pague um café (pix):
+Me pagar um café (pix): :coffee:
 
 ![me pague um café](./doc/pix-memo-plus.png)
+
+</center>
