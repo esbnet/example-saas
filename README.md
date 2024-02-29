@@ -30,7 +30,7 @@ deploy: <https://memo-plus.vercel.app>
 
 [](#servicos)
 
-## Serviço na web
+## Serviços na web
 
 - Supabase - gerenciador de banco de dados / postgress - <https://supabase.com>
 - Kinde - autenticação - <https://kinde.com>
@@ -100,7 +100,7 @@ STRIPE_WEBHOOK_SECRET=
 </br></br>
 
 <center>
-Bons Estudos...
+Bons estudos...
 
 </br></br></br>
 
