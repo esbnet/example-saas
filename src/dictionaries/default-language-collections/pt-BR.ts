@@ -8,7 +8,7 @@ export const ptBR = {
       "Bem-vindo a plataforma moderna e alegre para registrar e organizar suas notas de texto! Com uma interface intuitiva e recursos inovadores Memo+ torna a experiência de tomar notas realmente útil",
     signin: "Entrar",
     register: "Registrar",
-    signupButton: "Inscreva-se gratuitamente",
+    signupButton: "Registre-se gratuitamente",
   },
   dashboard: {
     title: "Suas anotações",
@@ -23,7 +23,7 @@ export const ptBR = {
     createNote: "Criar anotação",
   },
   settings: {
-    title: "Configurações",
+    title: "Perfil",
     description: "Configurações do seu perfil",
     formTitle: "Dados gerais",
     formDescription:
@@ -59,7 +59,7 @@ export const ptBR = {
   },
   menu: {
     menu1: "Painel",
-    menu2: "Anotações",
+    menu2: "Perfil",
     menu3: "Pagamento",
     logout: "Sair",
   },

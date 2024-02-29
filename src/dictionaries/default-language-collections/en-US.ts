@@ -8,7 +8,7 @@ export const enUS = {
       "Welcome to the modern and cheerful platform for recording and organizing your text notes! With an intuitive interface and innovative features Memo+ makes the note-taking experience truly useful",
     signin: "Sign In",
     register: "Register",
-    signupButton: "Sign up for free",
+    signupButton: "Register for free",
   },
   dashboard: {
     title: "Your Notes",
@@ -23,7 +23,7 @@ export const enUS = {
     createNote: "Create Note",
   },
   settings: {
-    title: "Settings",
+    title: "Profile",
     description: "Your Profile settings",
     formTitle: "General Data",
     formDescription:
@@ -59,7 +59,7 @@ export const enUS = {
   },
   menu: {
     menu1: "Home",
-    menu2: "Settings",
+    menu2: "Profile",
     menu3: "Billing",
     logout: "Logout",
   },

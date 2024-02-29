@@ -21,9 +21,9 @@ export async function Header({ lang }: { lang: Locale }) {
   const dic = getDictionaryServerOnly(lang);
 
   return (
-    <nav className="border-b bg-background h-[10vh] flex items-center">
-      <div className="container flex items-center justify-between">
-        <Link href="/">
+    <nav className="border-b bg-background h-[12vh] flex items-center">
+      <div className="container flex flex-col md:flex-row items-center justify-between">
+        <Link href="/" className="flex items-center p-2">
           <h1 className="text-3xl font-bold">
             {dic.app.logo.split(" ")[0]}
             <span className="text-primary">

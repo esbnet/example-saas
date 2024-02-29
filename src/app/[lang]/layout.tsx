@@ -53,6 +53,7 @@ export default async function RootLayout({
 
   return (
     <html lang={params.lang}>
+      {}
       <body
         className={`${inter.className} ${data?.colorScheme ?? "theme-orange"}`}
       >
