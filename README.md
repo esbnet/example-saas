@@ -42,13 +42,17 @@ deploy: <https://memo-plus.vercel.app>
 
    Escolha a pasta onde deseja armazenar o projeto e digite os comandos abaixo:
 
-   `git clone https://github.com/esbnet/example-saas.git`
+   ```
+   git clone https://github.com/esbnet/example-saas.git
+   ```
 
 2. Instalar dependências
 
    Na pasta raiz do projeto, digite o seguinte comando:
 
-   `npm install`
+   ```
+   npm install
+   ```
 
 3. Configurar variáveis de ambiente
 
@@ -79,14 +83,19 @@ STRIPE_WEBHOOK_SECRET=
    É pré-requisito configurar as variáveis de ambiente para que o sistema tenha as credenciais de acesso ao Supabase.
    Na pasta raiz, digite:
 
-   `npx prisma migrate dev`
+   ```
+   npx prisma migrate dev
+   ```
 
    Este é o comando que criará o banco de dados e as tabelas no ambiente do Supabase.
 
 5. Executar o projeto
 
    Ainda na pasta raiz do projeto, após realizar todos os procedimentos acima, rode o comando:
-   `npm run dev`
+
+   ```
+   npm run dev
+   ```
 
 ---
 
